@@ -99,18 +99,27 @@ def CrawlCompanyReviewData(startCompanyCode, lastCompanyCode):
             if len(status) == 0:
                 print("CASE : No Company")
                 continue
-            status[5] = status[5].strip('건,')
 
+            count = ""
+            for i in range(5,len(status)):
+                if '건' in status[i]:
+                    count = status[i]
+            
+            #print(count)
+            #status[5] = str(count).strip('건,')
+            status[5] = count.replace('건,','')
+            status[5] = status[5].replace(',','')
+            
+            #print(status[5])
             companyName = str(status[0])
-            if int(status[5]) <= 5:
+            if int(status[5])%5 == 0:
                 print("CASE : No Review")
                 continue
-
+                
             else :
                 print(int(status[5]))
-                #print("CASE : Riview exist")
                 reviewCount = int(status[5])
-                maxPageCount = int(reviewCount/5 + 1)
+                maxPageCount = int(reviewCount/5)
                 #print("maxPageCount : " + str(maxPageCount))
 
 
@@ -130,44 +139,45 @@ def CrawlCompanyReviewData(startCompanyCode, lastCompanyCode):
                     print("CASE : out")
                     continue
 
-            # try:
-                for k in range(5):  # 한페이지에 리뷰 5개씩 나오기 때문에 k=5
-                    reviewer_info = []
+                try:
+                    for k in range(5):  # 한페이지에 리뷰 5개씩 나오기 때문에 k=5
+                        reviewer_info = []
 
-                    # 응답자 정보
-                    position = soup.select('.content_top_ty2 > span.txt1') [0 + count4].text                # 직무
-                    status   = soup.select('.content_top_ty2 > span.txt1') [1 + count4].text                # 상황
-                    loc      = soup.select('.content_top_ty2 > span.txt1') [2 + count4].text                # 지역
-                    day      = soup.select('.content_top_ty2 > span.txt1') [3 + count4].text                # 작성일
+                        # 응답자 정보
+                        position = soup.select('.content_top_ty2 > span.txt1') [0 + count4].text                # 직무
+                        status   = soup.select('.content_top_ty2 > span.txt1') [1 + count4].text                # 상황
+                        loc      = soup.select('.content_top_ty2 > span.txt1') [2 + count4].text                # 지역
+                        day      = soup.select('.content_top_ty2 > span.txt1') [3 + count4].text                # 작성일
 
-                    #점
-                    star_rating = soup.select('.us_star_m > div.star_score') [0+k] ['style'] [6:-1]         # 총점
+                        #점
+                        star_rating = soup.select('.us_star_m > div.star_score') [0+k] ['style'] [6:-1]         # 총점
 
-                    # rating 5*5
-                    promotion = soup.select('.bl_score') [0 + count5] ['style'][6:-1]                       # 승진 기회 및 가능성
-                    welfare   = soup.select('.bl_score') [1 + count5] ['style'][6:-1]                       # 복지 및 급여
-                    balance   = soup.select('.bl_score') [2 + count5] ['style'][6:-1]                       # 업무와 삶의 균형
-                    culture   = soup.select('.bl_score') [3 + count5] ['style'][6:-1]                       # 사내 문화
-                    top       = soup.select('.bl_score') [4 + count5] ['style'][6:-1]                       # 경영진
+                        # rating 5*5
+                        promotion = soup.select('.bl_score') [0 + count5] ['style'][6:-1]                       # 승진 기회 및 가능성
+                        welfare   = soup.select('.bl_score') [1 + count5] ['style'][6:-1]                       # 복지 및 급여
+                        balance   = soup.select('.bl_score') [2 + count5] ['style'][6:-1]                       # 업무와 삶의 균형
+                        culture   = soup.select('.bl_score') [3 + count5] ['style'][6:-1]                       # 사내 문화
+                        top       = soup.select('.bl_score') [4 + count5] ['style'][6:-1]                       # 경영진
 
-                    # 중심 제목
-                    content = soup.select('h2.us_label')[0 + k].text                                        # 총평
+                        # 중심 제목
+                        content = soup.select('h2.us_label')[0 + k].text                                        # 총평
 
-                    # 장단점 경영진 의견                                                                    
-                    merit = soup.select('dl.tc_list > dd.df1 > span')[0 + count3].text                      # 장점
-                    disadvantages = soup.select('dl.tc_list > dd.df1>span') [1 + count3].text               # 단점
-                    df_tit = soup.select('dl.tc_list > dd.df1> span') [2 + count3].text                     # 바라는점                                                                               
-                    
-                    reviewer_info = [companyName , position, status, loc, day, star_rating, promotion, welfare, balance, culture,
-                    top, content, merit, disadvantages, df_tit]
-                    # top, clean_str(content), clean_str(merit), clean_str(disadvantages), clean_str(df_tit)]
+                        # 장단점 경영진 의견                                                                    
+                        merit = soup.select('dl.tc_list > dd.df1 > span')[0 + count3].text                      # 장점
+                        disadvantages = soup.select('dl.tc_list > dd.df1>span') [1 + count3].text               # 단점
+                        df_tit = soup.select('dl.tc_list > dd.df1> span') [2 + count3].text                     # 바라는점                                                                               
+                        
+                        reviewer_info = [companyName , position, status, loc, day, star_rating, promotion, welfare, balance, culture,
+                        top, content, merit, disadvantages, df_tit]
+                        # top, clean_str(content), clean_str(merit), clean_str(disadvantages), clean_str(df_tit)]
 
-                    result.append(reviewer_info)
-                    reviewer_info=[]
-                    count3 += 3
-                    count4 += 4
-                    count5 += 5
-            # except :
+                        result.append(reviewer_info)
+                        reviewer_info=[]
+                        count3 += 3
+                        count4 += 4
+                        count5 += 5
+                except :
+                    pass
 
 
     colname = ['회사명', '직무','상황', '지역', '작성일', '총점', '승진 기회 및 가능성', '복지 및 급여', '업무와 삶의 균형', '사내문화', '경영진', '총평', '장점', '단점', '바라는점']
