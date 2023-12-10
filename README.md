@@ -17,7 +17,11 @@ Our goal is to develop a practical system, and to achieve this, we trained the m
 </div>
 
 ## Dataset
-
+### Job announcement details data from Job Planet
+JobPlanet's recruitment details crawler.
+Crawling the company name, job, major work, qualification requirements, and preferential treatment.
+The dynamically assigned link is converted to an absolute path, stored, and then crawled through the link. This method can start crawling again from the desired link even if there is an error in the middle or the connection is disconnected.
+It was written as of December 2023, and if the structure of the webpage changes, the code may not work.
 
 ## Funtions
 ### Company Recommendation System (Model Based CF)
