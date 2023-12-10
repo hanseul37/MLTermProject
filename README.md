@@ -8,7 +8,7 @@ Our goal is to develop a practical system, and to achieve this, we trained the m
 ## Skills
 <div> 
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/Goole Colab-F9AB00?style=for-the-badge&logo=Google Colab&logoColor=black">
+<img src="https://img.shields.io/badge/Goole Colab-F9AB00?style=for-the-badge&logo=Google Colab&logoColor=white">
 <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=Jupyter&logoColor=white">
 <br>
 <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white">
