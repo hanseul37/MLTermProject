@@ -23,6 +23,16 @@ Crawling the company name, job, major work, qualification requirements, and pref
 The dynamically assigned link is converted to an absolute path, stored, and then crawled through the link. This method can start crawling again from the desired link even if there is an error in the middle or the connection is disconnected.
 It was written as of December 2023, and if the structure of the webpage changes, the code may not work.
 
+### Job announcement data from Job Korea
+JobKorea's recruitment data crawler.
+Crawling data such as company names, job titles, fields, dates, links, etc., from JobKorea. 
+Dynamically collecting data by automatically navigating through pages in the entire regional dataset.
+
+### Company review data from Job Planet
+JobPlanet's company review data crawler.
+Crawling data on company reviews and ratings from JobPlanet. Since the company codes are not explicitly specified, manually cross-referencing with 200,000 codes for data collection. 
+Collecting 5 reviews on each page and automatically navigating through pages for the process.
+
 ## Funtions
 ### Company Recommendation System (Model Based CF)
 Sagemaker's Factoring Machine model was used to create a model-based CF system using sagemaker.
